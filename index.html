@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>寶可夢趣味小考 20 題</title>
+  <style>
+    :root{
+      --bg1:#fffdf3; --bg2:#eef8ff; --card:#ffffffee; --text:#38445a; --muted:#6c7891;
+      --yellow:#ffd84d; --blue:#8ed4ff; --red:#ff8d8d; --green:#9be7af; --line:#dce9f7;
+      --shadow:0 14px 34px rgba(74,118,180,.16);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Segoe UI","Noto Sans TC",system-ui,sans-serif;color:var(--text);background:linear-gradient(180deg,var(--bg1),var(--bg2));line-height:1.7}
+    .wrap{max-width:980px;margin:0 auto;padding:14px 10px 56px}
+    .hero{background:linear-gradient(135deg,#fff9cf,#fff,#eef9ff);border:2px solid #e8eef9;border-radius:28px;padding:20px 16px;box-shadow:var(--shadow);margin-bottom:16px}
+    h1{margin:0 0 8px;font-size:clamp(28px,7vw,42px);line-height:1.12}
+    .sub{color:var(--muted);font-size:14px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.chip{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px}
+    .tools{display:grid;grid-template-columns:1fr auto auto;gap:10px;margin:16px 0}.search,.btn{border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:12px 14px;font-size:15px}.btn{cursor:pointer;font-weight:800}
+    .stats{font-size:14px;color:var(--muted);margin:8px 2px 14px}
+    .card{background:var(--card);border:2px solid #e8eef9;border-radius:22px;padding:18px 15px;margin-bottom:14px;box-shadow:var(--shadow)}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}.qid{font-weight:900;color:#ef5350}.tag{font-size:12px;padding:6px 10px;border-radius:999px;background:#fff2a9;border:1px solid #f7df62}
+    h3{margin:8px 0 10px;font-size:18px;line-height:1.45} ol{margin:0 0 0 22px;padding:0} li{margin:4px 0}
+    details{margin-top:14px} summary{list-style:none;cursor:pointer;display:inline-block;background:linear-gradient(90deg,#ffe57f,#fff0b6);border:1.5px solid #f4da6b;border-radius:999px;padding:10px 14px;font-weight:900} summary::-webkit-details-marker{display:none}
+    .answer{margin-top:12px;padding:14px;border-radius:18px;background:#fff;border:1.5px dashed #cfe1f7}.answer strong{color:#2f6fd6}.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:20px}.empty{text-align:center;color:var(--muted);padding:28px}
+    @media (max-width:720px){.tools{grid-template-columns:1fr 1fr}.search{grid-column:1/-1}.hero{padding:16px 13px}.card{padding:16px 13px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>寶可夢趣味小考 ⚡</h1>
+      <div class="sub">20 題輕鬆有趣版小測驗，混合角色、屬性、世界觀、經典梗與遊戲常識。手機看也舒服。</div>
+      <div class="chips">
+        <span class="chip">20 題趣味題</span>
+        <span class="chip">可愛輕鬆風</span>
+        <span class="chip">手機優化</span>
+        <span class="chip">每題可展開解答</span>
+      </div>
+    </section>
+
+    <section class="tools">
+      <input id="search" class="search" type="search" placeholder="搜尋關鍵字，例如：皮卡丘、屬性、火箭隊、進化、神獸" />
+      <button id="expandAll" class="btn">全部展開</button>
+      <button id="collapseAll" class="btn">全部收合</button>
+    </section>
+
+    <div class="stats" id="stats"></div>
+    <div id="list"></div>
+    <div class="foot">這是粉絲向趣味題，不是官方競技考核。可愛第一，考據第二 ✨</div>
+  </div>
+<script>
+const questions=[
+{id:1,tag:'主角寶可夢',q:'哪一隻寶可夢最常被視為整個系列的招牌門面？',c:['伊布','皮卡丘','胖丁','可達鴨'],a:'B',e:'皮卡丘幾乎就是寶可夢品牌代言人等級。'},
+{id:2,tag:'屬性常識',q:'一般情況下，水屬性對哪一種屬性通常有利？',c:['火屬性','草屬性','電屬性','龍屬性'],a:'A',e:'經典屬性相剋：水剋火。'},
+{id:3,tag:'動畫角色',q:'小智在動畫裡的經典旅伴之一，不包含下列哪位？',c:['小霞','小剛','武藏','瑟蕾娜'],a:'C',e:'武藏是火箭隊，不是旅伴。'},
+{id:4,tag:'反派組合',q:'經常喊著超有記憶點台詞登場的反派組織是？',c:['銀河隊','等離子隊','火箭隊','熔岩隊'],a:'C',e:'動畫裡最有辨識度的就是火箭隊三人組。'},
+{id:5,tag:'進化概念',q:'下列哪一隻是伊布的進化型之一？',c:['雷丘','水伊布','卡咪龜','九尾'],a:'B',e:'伊布有許多進化型，水伊布是其中之一。'},
+{id:6,tag:'人氣梗',q:'可達鴨最常被聯想到的特色是？',c:['超愛唱歌','頭痛時會爆發神秘力量','一直在睡覺','只會跳舞'],a:'B',e:'可達鴨的頭痛梗超經典。'},
+{id:7,tag:'御三家',q:'在很多代作品中，玩家一開始常會三選一，這三隻通常被稱作？',c:['神獸','御三家','館主隊','化石組'],a:'B',e:'草、火、水開局三選一就是大家熟悉的御三家。'},
+{id:8,tag:'傳說寶可夢',q:'下列哪一隻通常會被歸在傳說或神獸級別討論？',c:['烈空坐','小拉達','綠毛蟲','喇叭芽'],a:'A',e:'烈空坐是超高人氣的傳說寶可夢之一。'},
+{id:9,tag:'動畫印象',q:'胖丁在動畫中的經典橋段常常是？',c:['煮咖哩','唱歌讓大家睡著後畫人臉','瘋狂挖洞','偷吃樹果'],a:'B',e:'胖丁麥克筆畫臉真的很有記憶點。'},
+{id:10,tag:'對戰常識',q:'電屬性招式通常對哪種屬性特別有效？',c:['飛行屬性','地面屬性','草屬性','岩石屬性'],a:'A',e:'電打飛行常常很有效，但地面免疫電要記得。'},
+{id:11,tag:'寶可夢世界',q:'訓練家在各地旅行時，常以挑戰什麼作為重要目標？',c:['便利商店','道館','港口','研究所'],a:'B',e:'道館挑戰是系列非常核心的流程。'},
+{id:12,tag:'角色辨識',q:'火箭隊經典三人組通常是誰？',c:['小智、小霞、喵喵','武藏、小次郎、喵喵','大木博士、小建、皮卡丘','丹帝、奇巴納、喵喵'],a:'B',e:'這組合的辨識度高到沒混過也常聽過。'},
+{id:13,tag:'外型印象',q:'哪一隻寶可夢常被拿來代表「很呆萌又很受歡迎」？',c:['鯉魚王','卡比獸','綠毛蟲','鐵甲蛹'],a:'B',e:'卡比獸的呆萌魅力很穩。'},
+{id:14,tag:'經典台詞感',q:'如果有人說「就決定是你了！」，最容易聯想到什麼？',c:['寶可夢丟球出戰','棒球換投','抽獎結果','結婚告白'],a:'A',e:'這句根本是系列文化 DNA。'},
+{id:15,tag:'人氣角色',q:'伊布人氣高的一大原因，不包含下列哪一點？',c:['外型可愛','進化分支多','常被當作鋼屬性代表','周邊很多'],a:'C',e:'伊布不是鋼屬性代表，人氣點主要是可愛又多變。'},
+{id:16,tag:'初代記憶',q:'初代中非常經典、而且常被當成「超難抓」代表之一的鳥系傳說是？',c:['急凍鳥','比比鳥','大王燕','姆克鷹'],a:'A',e:'三神鳥是很多老玩家共同記憶。'},
+{id:17,tag:'屬性印象',q:'草屬性通常比較怕哪一種屬性？',c:['火屬性','水屬性','地面屬性','妖精屬性'],a:'A',e:'草怕火是最基本的相剋概念之一。'},
+{id:18,tag:'世界觀',q:'大木博士這類角色在寶可夢世界裡通常扮演什麼功能？',c:['反派首領','研究寶可夢並指引新手訓練家','道館館主','聯盟裁判'],a:'B',e:'博士角色常是冒險起點與知識提供者。'},
+{id:19,tag:'趣味梗',q:'鯉魚王最常被拿來開玩笑的點是？',c:['招式華麗到爆炸','前期常被覺得弱，但進化後會變猛','跑得超快','是火屬性'],a:'B',e:'鯉魚王→暴鯉龍是超經典反差。'},
+{id:20,tag:'系列魅力',q:'寶可夢系列長年受歡迎的一大核心，不太可能是下列哪一個原因？',c:['收集與培育的成就感','角色與世界觀有持續魅力','只能靠課金才能玩','每代都有新寶可夢帶來新鮮感'],a:'C',e:'寶可夢受歡迎的核心在收集、陪伴、冒險與新鮮感，不是單純課金。'}
+];
+const list=document.getElementById('list'); const stats=document.getElementById('stats'); let q='';
+function render(){
+  const arr=questions.filter(x=>`${x.tag} ${x.q} ${x.c.join(' ')} ${x.e}`.toLowerCase().includes(q.toLowerCase()));
+  stats.textContent=`目前顯示 ${arr.length} / ${questions.length} 題`;
+  list.innerHTML=arr.length?'':'<div class="empty">沒有找到對應題目，試試別的寶可夢關鍵字吧！</div>';
+  arr.forEach(x=>{
+    const el=document.createElement('article'); el.className='card';
+    el.innerHTML=`<div class="meta"><span class="qid">Q${x.id}</span><span class="tag">${x.tag}</span></div><h3>${x.q}</h3><ol type="A">${x.c.map(i=>`<li>${i}</li>`).join('')}</ol><details><summary>展開解答</summary><div class="answer"><strong>答案：${x.a}</strong><br><br>${x.e}</div></details>`;
+    list.appendChild(el);
+  });
+}
+document.getElementById('search').addEventListener('input',e=>{q=e.target.value.trim();render()});
+document.getElementById('expandAll').onclick=()=>document.querySelectorAll('details').forEach(d=>d.open=true);
+document.getElementById('collapseAll').onclick=()=>document.querySelectorAll('details').forEach(d=>d.open=false);
+render();
+</script>
+</body>
+</html>
